@@ -16,7 +16,24 @@ export class GifService {
   private serviceUrl : string = 'https://api.giphy.com/v1/gifs'
 
   // Importar el HttpModule en el app.config.ts primero
-  constructor( private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.loadLocalStorage()
+  }
+
+  // Almacenar los datos en el localStorange
+  private saveLocalStorage(): void {
+    if (typeof localStorage !== undefined)
+      localStorage.setItem('history', JSON.stringify(this._tagsHistory))
+  }
+
+  private loadLocalStorage(): void {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('history')) {
+      this._tagsHistory = JSON.parse(localStorage.getItem('history')!);
+
+      if (this._tagsHistory.length === 0) return;
+      this.searchTag(this._tagsHistory[0]);
+    }
+  }
 
   get tagsHistory() {
     return[...this._tagsHistory]
@@ -33,8 +50,10 @@ export class GifService {
     }
     // Poene el tag nuevo de primero en el arr
     this._tagsHistory.unshift(tag)
-    //
+    //Devuelve un arr de 10 elementos
     this._tagsHistory = this._tagsHistory.splice(0,10)
+    // Almacenar la info en el localStorange
+    this.saveLocalStorage();
   }
 
   searchTag( tag: string ):void {
