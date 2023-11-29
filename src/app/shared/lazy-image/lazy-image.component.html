@@ -1,0 +1,25 @@
+
+<div class="d-flex justify-content-center">
+
+  <!-- Imagen de la card, llama el metodo onload para validar si la img ya fue cargada -->
+  <img
+    [src]="url"
+    [alt]="alt"
+    (load)="onLoad()"
+    [ngStyle]="{ display: hasLoaded ? '' : 'none'}"
+    class="card-img-top animate__animated animate__fadeIn"
+  />
+
+  <!-- Si la img no ha sido cargada se muestra el loader -->
+  @if ( !hasLoaded ) {
+    <img
+    src="assets/loaders.svg"
+    height="35"
+    width="35"
+    class="mt-3"
+  />
+  }
+
+
+
+</div>

@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GifService } from '../../services/gif.service';
 import { Gif } from '../../interfaces/gifs.interfaces';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'gifs-card-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CardComponent],
   templateUrl: './card-list.component.html',
   styles: ``
 })
